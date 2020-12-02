@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Message from '../components/Message'
-import { addToCart } from '../actions/cartActions'
+import { addToCart, removeFromCart } from '../actions/cartActions'
 
 
 
@@ -22,10 +22,10 @@ const CartScreen = ({ match, location, history }) => {
     }, [dispatch, productId, qty])
 
     const removeCartHandler = (id) => {
-        console.log('remove')
+        dispatch(removeFromCart(id))
     }
     const checkoutHandler = (id) => {
-        console.log('async')
+       history.push('/login?redirect=shipping')
     }
     return (
         <Row>
@@ -78,9 +78,9 @@ const CartScreen = ({ match, location, history }) => {
                 <Card>
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
-                            <h2>
+                            <h3>
                                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items
-                            </h2>
+                            </h3>
 
                             IDR {cartItems
                             .reduce((acc, item) => acc + item.qty * item.price, 0)

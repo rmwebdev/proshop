@@ -7,7 +7,7 @@ import Product from '../models/productModel.js'
 //@access Public
 
 const getProducts = asyncHandler(async(req, res) => {
-    const products = await Product.find({})
+    const products = await Product.find({timeout: true, maxTimeMS: 600000},{})
     res.json(products)
 })
 
